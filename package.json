@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "description": "Semantic release tools, plugins and configs for OSS projects",
   "workspaces": [
-    "packages/*",
-    "!packages/testing-suite",
-    "!packages/meta",
+    "packages/*"
   ],
   "private": true,
   "scripts": {
