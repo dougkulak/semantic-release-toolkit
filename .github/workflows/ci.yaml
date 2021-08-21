@@ -72,13 +72,13 @@ jobs:
 #      - name: Unit test only
 #        run: yarn test:unit
 
-      - name: Push coverage
-        if: github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@v2
-        with:
-          name: target
-          retention-days: 1
-          path: coverage
+#      - name: Push coverage
+#        if: github.ref == 'refs/heads/main'
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: target
+#          retention-days: 1
+#          path: coverage
 
   test_pr:
     if: github.event_name == 'pull_request'
@@ -131,13 +131,13 @@ jobs:
         with:
           node-version: 14
 
-      - name: Codeclimate
-        uses: paambaati/codeclimate-action@v2.7.5
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageLocations: |
-            ${{github.workspace}}/coverage/*.lcov:lcov
+#      - name: Codeclimate
+#        uses: paambaati/codeclimate-action@v2.7.5
+#        env:
+#          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+#        with:
+#          coverageLocations: |
+#            ${{github.workspace}}/coverage/*.lcov:lcov
 
       - name: Install deps
         run: |
