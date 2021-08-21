@@ -1,0 +1,71 @@
+{
+  "name": "@dougkulak/semrel-metabranch",
+  "version": "1.6.6",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Semrel plugin for two-way data sync with remote branch",
+  "keywords": [],
+  "main": "target/es5/index.js",
+  "source": "target/ts/index.ts",
+  "types": "target/es5/index.d.ts",
+  "typescript": {
+    "definition": "target/es5/index.d.ts"
+  },
+  "files": [
+    "README.md",
+    "CHANGELOG.md",
+    "target",
+    "typings",
+    "flow-typed"
+  ],
+  "scripts": {
+    "clean": "rimraf target typings flow-typed buildcache coverage docs",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "yarn lint --fix",
+    "format": "prettier --write 'src/**/*.ts'",
+    "test": "npm-run-all -p -l lint test:unit test:depcheck",
+    "test:unit": "jest --runInBand",
+    "test:depcheck": "depcheck --ignores @types/*,tslib,eslint-*,prettier-*,@dougkulak/semrel-infra --ignore-patterns typings,flow-typed/*",
+    "build": "npm-run-all -p -l build:es5 build:es6 build:ts build:libdef docs",
+    "build:es5": "mkdirp target/es5 && tsc -p tsconfig.es5.json",
+    "build:es6": "mkdirp target/es6 && tsc -p tsconfig.es6.json",
+    "build:ts": "cpy src/main/ts/ target/ts/",
+    "build:libdef": "libdefkit --tsconfig=tsconfig.es5.json --tsconfig=tsconfig.es6.json",
+    "docs": "typedoc --options ./typedoc.json ./src/main/ts",
+    "uglify": "for f in $(find target -name '*.js'); do short=${f%.js}; terser -c -m -o $short.js -- $f; done",
+    "postupdate": "yarn && yarn build && yarn test"
+  },
+  "dependencies": {
+    "@types/execa": "^2.0.0",
+    "@types/semantic-release": "^17.2.1",
+    "@types/node": "^16.0.0",
+    "@dougkulak/semrel-common": "1.4.5",
+    "@dougkulak/semrel-plugin-creator": "1.7.7",
+    "tslib": "^2.3.0",
+    "execa": "^5.1.1",
+    "tempy": "^1.0.1",
+    "globby": "^11.0.4",
+    "fs-extra": "^10.0.0"
+  },
+  "devDependencies": {
+    "@dougkulak/semrel-infra": "1.1.4",
+    "@dougkulak/semrel-testing-suite": "1.4.6",
+    "semantic-release": "^17.4.4",
+    "resolve-from": "^5.0.0"
+  },
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dougkulak/semantic-release-toolkit.git"
+  },
+  "author": "Doug Kulak <dougkulak@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dougkulak/semantic-release-toolkit/issues"
+  },
+  "homepage": "https://github.com/dougkulak/semantic-release-toolkit/#readme",
+  "prettier": "prettier-config-qiwi"
+}

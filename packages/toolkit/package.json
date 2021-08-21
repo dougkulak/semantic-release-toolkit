@@ -1,0 +1,41 @@
+{
+  "name": "@dougkulak/semrel-toolkit",
+  "version": "2.0.4",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Semantic release tools, plugins and configs for OSS projects",
+  "keywords": [],
+  "files": [
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "bin": {
+    "semrel": "./semrel.js",
+    "multi-semrel": "./msr.js"
+  },
+  "scripts": {
+    "semantic-release": "semantic-release",
+    "multi-semantic-release": "multi-semantic-release"
+  },
+  "dependencies": {
+    "@dougkulak/multi-semantic-release": "~1.1.0",
+    "semantic-release": "~17.4.4",
+    "@dougkulak/semrel-config": "1.3.9",
+    "@dougkulak/semrel-config-monorepo": "1.4.9",
+    "@dougkulak/semrel-preset": "1.3.1"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dougkulak/semantic-release-toolkit.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dougkulak/semantic-release-toolkit/issues"
+  },
+  "homepage": "https://github.com/dougkulak/semantic-release-toolkit/#readme"
+}

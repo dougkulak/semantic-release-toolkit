@@ -1,0 +1,43 @@
+{
+  "name": "@dougkulak/semrel-toolkit-monorepo",
+  "version": "0.0.0",
+  "description": "Semantic release tools, plugins and configs for OSS projects",
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "clean": "lerna clean --yes && lerna run clean",
+    "lint": "lerna run lint --parallel --stream --no-prefix",
+    "lint:fix": "lerna run lint:fix",
+    "test": "npm-run-all -p -l lint test:unit test:depcheck test:depaudit",
+    "test:unit": "jest --detectOpenHandles --forceExit --runInBand",
+    "test:report": "yarn test && yarn coveralls:push",
+    "test:concurrent": "lerna run test --stream --no-prefix && yarn coverage:merge",
+    "test:depcheck": "lerna run test:depcheck --parallel --stream --no-prefix",
+    "test:depaudit": "yarn audit --level=moderate --groups=dependencies; [[ $? -ge 4 ]] && exit 1 || exit 0",
+    "test:depauditfix": "npm_config_yes=true npx yarn-audit-fix --audit-level=moderate",
+    "prebuild": "tsc -b",
+    "build": "lerna run build --stream --parallel",
+    "coverage:merge": "node scripts/js/coverage-merge.js",
+    "coveralls:push": "cat ./coverage/lcov.info | coveralls || echo 'coveralls push failed :(' && exit 0",
+    "uglify": "lerna run uglify --stream --parallel",
+    "release": "env-cmd multi-semantic-release",
+    "postupdate": "yarn && yarn bootstrap && yarn test:depauditfix && yarn clean && yarn build && yarn test"
+  },
+  "devDependencies": {
+    "coveralls": "^3.1.1",
+    "env-cmd": "^10.1.0",
+    "find-git-root": "^1.0.4",
+    "lerna": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dougkulak/semantic-release-toolkit.git"
+  },
+  "resolutions": {
+    "*/**/find-up": "^5.0.0",
+    "*/**/normalize-url": "^6.0.1"
+  }
+}

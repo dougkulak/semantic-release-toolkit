@@ -1,0 +1,65 @@
+{
+  "name": "@dougkulak/semrel-testing-suite",
+  "version": "1.4.6",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Semrel/msr testing helpers",
+  "keywords": [],
+  "main": "target/es5/index.js",
+  "source": "target/ts/index.ts",
+  "types": "target/es5/index.d.ts",
+  "typescript": {
+    "definition": "target/es5/index.d.ts"
+  },
+  "files": [
+    "README.md",
+    "CHANGELOG.md",
+    "target",
+    "typings",
+    "flow-typed"
+  ],
+  "scripts": {
+    "clean": "rimraf target typings flow-typed buildcache coverage docs",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "yarn lint --fix",
+    "format": "prettier --write 'src/**/*.ts'",
+    "test": "npm-run-all -p -l lint test:unit test:depcheck",
+    "test:unit": "jest --runInBand",
+    "test:depcheck": "depcheck --ignores @types/*,tslib,eslint-*,prettier-*,@dougkulak/semrel-infra --ignore-patterns typings,flow-typed/*",
+    "build": "npm-run-all -p -l build:es5 build:es6 build:ts build:libdef docs",
+    "build:es5": "mkdirp target/es5 && tsc -p tsconfig.es5.json",
+    "build:es6": "mkdirp target/es6 && tsc -p tsconfig.es6.json",
+    "build:ts": "cpy src/main/ts/ target/ts/",
+    "build:libdef": "libdefkit --tsconfig=tsconfig.es5.json --tsconfig=tsconfig.es6.json",
+    "docs": "typedoc --options ./typedoc.json ./src/main/ts",
+    "uglify": "for f in $(find target -name '*.js'); do short=${f%.js}; terser -c -m -o $short.js -- $f; done",
+    "postupdate": "yarn && yarn build && yarn test"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "fs-extra": "^10.0.0",
+    "tempy": "^1.0.1",
+    "execa": "^5.1.1",
+    "@dougkulak/semrel-common": "1.4.5",
+    "@antongolub/git-root": "^1.5.6",
+    "@qiwi/substrate": "^1.20.9"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "@dougkulak/semrel-infra": "1.1.4"
+  },
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dougkulak/semantic-release-toolkit.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dougkulak/semantic-release-toolkit/issues"
+  },
+  "homepage": "https://github.com/dougkulak/semantic-release-toolkit/#readme",
+  "prettier": "prettier-config-qiwi"
+}
