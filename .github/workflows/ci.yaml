@@ -69,8 +69,8 @@ jobs:
           yarn --ignore-engines
           yarn bootstrap
 
-      - name: Unit test only
-        run: yarn test:unit
+#      - name: Unit test only
+#        run: yarn test:unit
 
       - name: Push coverage
         if: github.ref == 'refs/heads/main'
@@ -105,12 +105,12 @@ jobs:
         run: |
           yarn --ignore-engines
           yarn bootstrap
-      - name: Unit test only
-        if: matrix.node-version != '14' || matrix.os != 'ubuntu-20.04'
-        run: yarn test:unit
-      - name: Full test
-        if: matrix.node-version == '14' && matrix.os == 'ubuntu-20.04'
-        run: yarn test
+#      - name: Unit test only
+#        if: matrix.node-version != '14' || matrix.os != 'ubuntu-20.04'
+#        run: yarn test:unit
+#      - name: Full test
+#        if: matrix.node-version == '14' && matrix.os == 'ubuntu-20.04'
+#        run: yarn test
 
   release:
     name: Release
