@@ -12,8 +12,8 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "test": "echo \"tests disabled\" && exit 0 || yarn test:unit",
-    "test:unit": "echo \"tests disabled\" && exit 0 || jest --runInBand",
+    "test": "yarn test:unit",
+    "test:unit": "jest --runInBand",
     "clean": "rimraf target",
     "postupdate": "yarn && yarn build && yarn test",
     "format": "prettier --write 'src/**/*.ts'"

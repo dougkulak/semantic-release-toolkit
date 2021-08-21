@@ -15,8 +15,8 @@
     "target"
   ],
   "scripts": {
-    "test": "echo \"tests disabled\" && exit 0 || yarn test:unit",
-    "test:unit": "echo \"tests disabled\" && exit 0 || jest",
+    "test": "yarn test:unit",
+    "test:unit": "jest",
     "clean": "rimraf target",
     "build": "yarn build:es5",
     "build:es5": "mkdirp target/es5 && cpy src/main/js target/es5/",
